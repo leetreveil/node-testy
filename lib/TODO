@@ -1,6 +1,3 @@
-implement the rest of the assert.js test functions
-uppercase assert.on('ranTest')
-
 IDEAS: 
 
 add aliases to common assert functions e.g. assert.strictEqual() becomes assert.se() etc
