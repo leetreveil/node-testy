@@ -1,0 +1,11 @@
+implement the rest of the assert.js test functions
+uppercase assert.on('ranTest')
+
+IDEAS: 
+
+add aliases to common assert functions e.g. assert.strictEqual() becomes assert.se() etc
+be able to name tests -  so we could say var mytest = new testy('buffer length test') and that would print the test name with the report
+be able to set the timeout value for the test
+be able to pass an options object? e.g. { name : 'mytest', timeout : 500, expected : 15 }
+be able to manually invoke ranTests so it isn't a requirement that we use the custom assert object
+
