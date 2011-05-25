@@ -1,10 +1,9 @@
-var testy = require('../lib/testy')(),
-    assert = testy.assert;
+var testy = require('../lib/testy');
 
 //this tests the timeout ability of
 //the framework, 1 test should be ran
 //even though we havent explicitly told
 //the framework that the test has finished
-testy.timeout = 200;
-testy.expected = 1;
+var test = new testy({ timeout : 200, expected : 1 });
+assert = test.assert;
 assert.strictEqual(1, 1);

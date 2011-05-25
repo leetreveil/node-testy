@@ -1,6 +1,6 @@
 var testy = require('../lib/testy');
     
-var test = new testy({ expected : 1 });
+var test = new testy();
 var assert = test.assert;
 
 assert.strictEqual(1, 1);

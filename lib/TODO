@@ -1,11 +1,8 @@
 IDEAS: 
 
-be able to pass an options object? e.g. { name : 'mytest', timeout : 500, expected : 15 }
 be able to manually invoke ranTests so it isn't a requirement that we use the custom assert object
 
 should we disallow 'properties' and recommend that expected/timeout settings are passed
 through the constructor?
-
-make the expected test count optional
 
 MANTRA? everything is optional
