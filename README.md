@@ -19,6 +19,7 @@ var test = new testy();
 var assert = test.assert;
 
 assert.equal(true, true);
+````
 
 
 Most complex
@@ -34,3 +35,4 @@ assert.Equal(1, 1);
 assert.deepEqual([1, 2, 3], [1, 2, 3]);
 
 test.finish();
+````
