@@ -1,4 +1,4 @@
-var testy = require('../lib/testy');
+var testy = require('./testy');
     
 var test = new testy();
 var assert = test.assert;

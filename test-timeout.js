@@ -1,4 +1,4 @@
-var testy = require('../lib/testy');
+var testy = require('./testy');
 
 //this tests the timeout ability of
 //the framework, 1 test should be ran

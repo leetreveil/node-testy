@@ -2,5 +2,5 @@
   "description": "Super simple testing framework",
   "version": "0.0.1",
   "author": "Lee Treveil",
-  "main": "lib/testy"
+  "main": "testy"
 }
