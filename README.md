@@ -1,17 +1,15 @@
-What is it?
-__________
-Super simple testing framework. No added sugar. 120 LOC.
+#What is it?
+Super simple testing framework. No added sugar. 100~ LOC.
 
 
-Installation
-__________
+#Installation
 Install with npm:
 
 npm install testy
 
+#API
 
-Simplest
-___________
+##Simple
 ````javascript
 var testy = require('testy');
 
@@ -22,12 +20,11 @@ assert.equal(true, true);
 ````
 
 
-Most complex
-___________
+##Most complex
 `````javascript
 var testy = require('testy');
 
-var options = { expected : 1, name : 'Some simple test', timeout : 3000 };
+var options = { expected : 2, name : 'Some simple test', timeout : 3000 };
 var test = new testy(options);
 var assert = test.assert;
 
