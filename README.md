@@ -1,27 +1,33 @@
-#What is it?
-Super simple testing framework. No added sugar. 100~ LOC.
+# testy
+
+Super simple testing script. No added sugar. 100~ LOC.
 
 
-#Installation
+## Install
+
 Install with npm:
 
+``` bash
 npm install testy
+```
 
-#API
+## Usage
 
-##Simple
-````javascript
+### Simple
+
+``` javascript
 var testy = require('testy');
 
 var test = new testy();
 var assert = test.assert;
 
 assert.equal(true, true);
-````
+```
 
 
-##Most complex
-`````javascript
+### Most complex
+
+```` javascript
 var testy = require('testy');
 
 var options = { expected : 2, name : 'Some simple test', timeout : 3000 };
@@ -32,4 +38,4 @@ assert.Equal(1, 1);
 assert.deepEqual([1, 2, 3], [1, 2, 3]);
 
 test.finish();
-````
+```
