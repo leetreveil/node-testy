@@ -24,6 +24,9 @@ var assert = test.assert;
 assert.equal(true, true);
 ```
 
+Output:
+PASS test-simple.js ran 1 test in 502ms
+
 
 ### Most complex
 
@@ -34,8 +37,11 @@ var options = { expected : 2, name : 'Some simple test', timeout : 3000 };
 var test = new testy(options);
 var assert = test.assert;
 
-assert.Equal(1, 1);
+assert.equal(1, 1);
 assert.deepEqual([1, 2, 3], [1, 2, 3]);
 
 test.finish();
 ```
+
+Output:
+PASS test-simple [Some simple test] ran 2 out of 2 tests in 0ms
