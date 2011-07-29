@@ -1,6 +1,6 @@
 { "name": "testy",
   "description": "Super simple testing framework",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Lee Treveil",
   "main": "testy"
 }
