@@ -90,10 +90,6 @@ Testy.prototype.report = function() {
   }
   
   function color(text) {
-    if (process.platform === 'win32') {
-      return text;
-    }
-
     if (text === 'PASS') {
       return '\033[32m' + text + '\033[0m';
     }
