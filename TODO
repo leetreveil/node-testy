@@ -1,0 +1,8 @@
+IDEAS: 
+
+be able to manually invoke ranTests so it isn't a requirement that we use the custom assert object
+
+should we disallow 'properties' and recommend that expected/timeout settings are passed
+through the constructor?
+
+MANTRA? everything is optional

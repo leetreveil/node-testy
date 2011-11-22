@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/leetreveil/node-testy.png)](http://travis-ci.org/leetreveil/node-testy)
+
 # testy
 
 Super simple testing script. No added sugar. 100~ LOC.

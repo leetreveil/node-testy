@@ -2,5 +2,8 @@
   "description": "Super simple testing framework",
   "version": "0.0.3",
   "author": "Lee Treveil",
-  "main": "testy"
+  "main": "testy",
+  "scripts": {
+    "test": "node alltests.js"
+  }
 }
