@@ -4,8 +4,7 @@ if (module == require.main) {
       path  = require('path');
     
   var tests = ['test-fail.js', 'test-multinstance.js',
-               'test-namedtest.js', 'test-simple.js',
-               'test-timeout.js'];
+               'test-namedtest.js', 'test-simple.js'];
                
   for (var i=0; i < tests.length; i++) {
     var test = tests[i];

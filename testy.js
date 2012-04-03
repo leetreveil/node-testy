@@ -21,16 +21,16 @@ var AssertExt = function() {
   });
 }
 
-util.inherits(AssertExt, events.EventEmitter);    
+util.inherits(AssertExt, events.EventEmitter);
 
 var Testy = module.exports = function(options) {
   if (!(this instanceof Testy)) return new Testy();
 
-  this.timeout = 500;
   this.expected = 0;
   this.name = '';
   this.assert = new AssertExt();
   this._testsRan = 0;
+  this._timer = Date.now();
   
   options = options || {};
   
@@ -39,33 +39,18 @@ var Testy = module.exports = function(options) {
     var key = keys[i];
     this[key] = options[key];
   }
-  
+
   var self = this;
-  this.assert.on('RANTEST', function() {
-    self.ranTests(1);
-  });
-  
-  this.ranTests(0); //do a check now (incase no tests are ran)
-}
 
-Testy.prototype.finish = function() {
-  clearTimeout(this._timeout);
-  this.report();
-}
-
-Testy.prototype.ranTests = function(number) {
-  this._testsRan += number;
-  this._timer =  this._timer || Date.now();
-  //everytime we run a test we reset the timeout
-  clearTimeout(this._timeout);
-
-  //either a timeout or an explicit 
-  //call to finish() will end the test  
-  
-  var self = this;
-  this._timeout = setTimeout(function() {
+  // when the process exits report the results
+  process.on('exit', function () {
     self.report();
-  }, this.timeout);
+  });
+
+  // everytime a test is ran update the test count
+  this.assert.on('RANTEST', function() {
+    self._testsRan += 1;
+  });
 }
 
 Testy.prototype.report = function() {
