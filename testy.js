@@ -43,8 +43,19 @@ var Testy = module.exports = function(options) {
   var self = this;
 
   // when the process exits report the results
-  process.on('exit', function () {
+  process.once('exit', function(code) {
     self.report();
+
+    // return the error code 1 = fail, 0 = pass
+    if (self.expected === 0) {
+      process.exit(0);
+    };
+
+    if (self._testsRan === self.expected) {
+      process.exit(0);
+    } else {
+      process.exit(1);
+    }
   });
 
   // everytime a test is ran update the test count
