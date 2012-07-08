@@ -23,25 +23,17 @@ var AssertExt = function() {
 
 util.inherits(AssertExt, events.EventEmitter);
 
-var Testy = module.exports = function(options) {
+var Testy = module.exports = function(name) {
   if (!(this instanceof Testy)) return new Testy();
 
+  var self = this;
+
   this.expected = 0;
-  this.name = '';
+  this.name = name || '';
   this.assert = new AssertExt();
   this._testsRan = 0;
   this._timer = Date.now();
   
-  options = options || {};
-  
-  var keys = Object.keys(options);
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i];
-    this[key] = options[key];
-  }
-
-  var self = this;
-
   // when the process exits report the results
   process.once('exit', function(code) {
     self.report();
