@@ -15,35 +15,55 @@ npm install testy
 
 ## Usage
 
-### Simple
+### Example A
+
+Designed to be as simple as possible - no functions, just the test.
+
+``` javascript
+var test  = require('testy')();
+var assert = test.assert;
+assert.equal(true, true);
+```
+
+![example-a-screenshot!](https://github.com/leetreveil/node-testy/raw/master/example-a.png)
+
+
+### Example B
+
+Set the expected property for async testing.
+
+```` javascript
+var test  = require('testy')();
+var assert = test.assert;
+
+test.expected = 2;
+
+setTimeout(function() {
+  assert.equal(1, 1);
+  assert.deepEqual([1, 2, 3], [1, 2, 3]);
+}, 2000);
+```
+
+![example-b-screenshot!](https://github.com/leetreveil/node-testy/raw/master/example-b.png)
+
+
+
+### Example C
+
+Run multiple tests within a file.
 
 ``` javascript
 var testy = require('testy');
 
-var test = new testy();
-var assert = test.assert;
+var testA = new testy('testA');
+var assertA = testA.assert;
+testA.expected = 1;
+assertA.strictEqual(1, 1);
 
-assert.equal(true, true);
+var testB = new testy('testB');
+var assertB = testB.assert;
+testB.expected = 1;
+assertB.strictEqual(1, 1);
 ```
 
-Output:
-PASS test-simple.js ran 1 test in 502ms
-
-
-### Most complex
-
-```` javascript
-var testy = require('testy');
-
-var options = { expected : 2, name : 'Some simple test', timeout : 3000 };
-var test = new testy(options);
-var assert = test.assert;
-
-assert.equal(1, 1);
-assert.deepEqual([1, 2, 3], [1, 2, 3]);
-
-test.finish();
-```
-
-Output:
-PASS test-simple [Some simple test] ran 2 out of 2 tests in 0ms
+![example-c-screenshot!](https://github.com/leetreveil/node-testy/raw/master/example-c.png)
