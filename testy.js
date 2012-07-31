@@ -23,8 +23,31 @@ var AssertExt = function() {
 
 util.inherits(AssertExt, events.EventEmitter);
 
+
+
+var testies = [];
+
+process.once('exit', function(code) {
+  var totalExpectedTests = 0;
+  var totalTestsRan = 0;
+
+  for (var i in testies)
+  {
+    testies[i].report();
+    totalExpectedTests += testies[i].expected;
+    totalTestsRan += testies[i]._testsRan;
+  }
+
+  if (totalExpectedTests === 0) process.exit(0);
+  process.exit((totalTestsRan === totalExpectedTests) ? 0 : 1);
+})
+
+
+
 var Testy = module.exports = function(name) {
   if (!(this instanceof Testy)) return new Testy();
+
+  testies.push(this);
 
   var self = this;
 
@@ -33,24 +56,8 @@ var Testy = module.exports = function(name) {
   this.assert = new AssertExt();
   this._testsRan = 0;
   this._timer = Date.now();
-  
-  // when the process exits report the results
-  process.once('exit', function(code) {
-    self.report();
 
-    // return the error code 1 = fail, 0 = pass
-    if (self.expected === 0) {
-      process.exit(0);
-    };
-
-    if (self._testsRan === self.expected) {
-      process.exit(0);
-    } else {
-      process.exit(1);
-    }
-  });
-
-  // everytime a test is ran update the test count
+  // everytime an test is ran update the test count
   this.assert.on('RANTEST', function() {
     self._testsRan += 1;
   });
