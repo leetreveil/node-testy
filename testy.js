@@ -28,15 +28,9 @@ var Testy = module.exports = function (name) {
 
   this.expected  = 0;
   this.name      = name || '';
-  this.assert    = new AssertExt();
+  this.assert    = new AssertExt(this);
   this._testsRan = 0;
   this._timer    = Date.now();
-
-  // everytime an test is ran update the test count
-  var self = this;
-  this.assert.on('RANTEST', function () {
-    self._testsRan += 1;
-  })
 }
 
 Testy.prototype.report = function () {
@@ -72,9 +66,7 @@ Testy.prototype.report = function () {
   }
 }
 
-var AssertExt = function () {
-  events.EventEmitter.call(this);
-  
+var AssertExt = function (parent) {
   var assertions = [ 'fail', 'ok', 'equal', 'notEqual', 'deepEqual', 
                      'notDeepEqual', 'strictEqual', 'notStrictEqual', 
                      'throws', 'doesNotThrow', 'ifError' ];
@@ -83,8 +75,7 @@ var AssertExt = function () {
   assertions.forEach(function (funcName) {
     self[funcName] = function () {
       assert[funcName].apply(null, arguments);
-      self.emit('RANTEST');
+      parent._testsRan += 1;
     }
   })
 }
-util.inherits(AssertExt, events.EventEmitter);
