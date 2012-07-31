@@ -2,7 +2,7 @@
 
 # testy
 
-Super simple testing script. No added sugar. 100~ LOC.
+Super simple testing script. No added sugar. ≈100 LOC.
 
 
 ## Install

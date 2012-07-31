@@ -34,26 +34,29 @@ var Testy = module.exports = function (name) {
 }
 
 Testy.prototype.report = function () {
-  var self     = this;
-  var filename = module.parent.filename;
-  var named    = this.name;
-      
   var taken = Date.now() - this._timer;
-   
-  if (named.length > 0) named = ' [' + named + ']';
+
+  var name = this.name;
+  if (name.length > 0) name = util.format(' [%s] ', name);
   
-  var passed = (self._testsRan === self.expected)
+  var passed = (this._testsRan === this.expected)
     ? color('PASS') : color('FAIL')
-    
+
+  var output = '';
   if (this.expected === 0) {
-    console.log('%s %s%s ran %s tests in %sms',
-      color('PASS'), path.basename(filename), 
-      named, this._testsRan, taken);
+    passed = color('PASS')
+    output = 'tests';
   } else {
-    console.log('%s %s%s ran %s out of %s tests in %sms',
-      passed, path.basename(filename), named, 
-      this._testsRan, this.expected, taken);
+    output = util.format('out of %s tests', this.expected);
   }
+
+  console.log('%s %s%s ran %s %s in %sms '
+    , passed
+    , path.basename(module.parent.filename)
+    , name
+    , this._testsRan
+    , output
+    , taken);
   
   function color (text) {
     if (text === 'PASS') {
