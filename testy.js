@@ -1,33 +1,12 @@
-var path = require('path'),
-    util = require('util'),
-    assert = require('assert'),
-    events = require('events'),
-    fileName = module.parent.filename;
-
-
-var AssertExt = function() {
-  events.EventEmitter.call(this);
-  
-  var assertions = [ 'fail', 'ok', 'equal', 'notEqual', 'deepEqual', 
-                     'notDeepEqual', 'strictEqual', 'notStrictEqual', 
-                     'throws', 'doesNotThrow', 'ifError' ];
-        
-  var self = this;             
-  assertions.forEach(function(funcName) {
-    self[funcName] = function() {
-      assert[funcName].apply(null, arguments);
-      self.emit('RANTEST');
-    }
-  });
-}
-
-util.inherits(AssertExt, events.EventEmitter);
-
+var path   = require('path');
+var util   = require('util');
+var assert = require('assert');
+var events = require('events');
 
 
 var testies = [];
 
-process.once('exit', function(code) {
+process.once('exit', function (code) {
   var totalExpectedTests = 0;
   var totalTestsRan = 0;
 
@@ -42,49 +21,47 @@ process.once('exit', function(code) {
   process.exit((totalTestsRan === totalExpectedTests) ? 0 : 1);
 })
 
-
-
-var Testy = module.exports = function(name) {
+var Testy = module.exports = function (name) {
   if (!(this instanceof Testy)) return new Testy();
 
   testies.push(this);
 
-  var self = this;
-
-  this.expected = 0;
-  this.name = name || '';
-  this.assert = new AssertExt();
+  this.expected  = 0;
+  this.name      = name || '';
+  this.assert    = new AssertExt();
   this._testsRan = 0;
-  this._timer = Date.now();
+  this._timer    = Date.now();
 
   // everytime an test is ran update the test count
-  this.assert.on('RANTEST', function() {
+  var self = this;
+  this.assert.on('RANTEST', function () {
     self._testsRan += 1;
-  });
+  })
 }
 
-Testy.prototype.report = function() {
-  var self = this,
-      named = this.name;
+Testy.prototype.report = function () {
+  var self     = this;
+  var filename = module.parent.filename;
+  var named    = this.name;
       
   var taken = Date.now() - this._timer;
    
   if (named.length > 0) named = ' [' + named + ']';
   
-  passed = (self._testsRan === self.expected)
+  var passed = (self._testsRan === self.expected)
     ? color('PASS') : color('FAIL')
     
   if (this.expected === 0) {
     console.log('%s %s%s ran %s tests in %sms',
-      color('PASS'), path.basename(fileName), 
+      color('PASS'), path.basename(filename), 
       named, this._testsRan, taken);
   } else {
     console.log('%s %s%s ran %s out of %s tests in %sms',
-      passed, path.basename(fileName), named, 
+      passed, path.basename(filename), named, 
       this._testsRan, this.expected, taken);
   }
   
-  function color(text) {
+  function color (text) {
     if (text === 'PASS') {
       return '\033[32m' + text + '\033[0m';
     }
@@ -94,3 +71,20 @@ Testy.prototype.report = function() {
     }
   }
 }
+
+var AssertExt = function () {
+  events.EventEmitter.call(this);
+  
+  var assertions = [ 'fail', 'ok', 'equal', 'notEqual', 'deepEqual', 
+                     'notDeepEqual', 'strictEqual', 'notStrictEqual', 
+                     'throws', 'doesNotThrow', 'ifError' ];
+        
+  var self = this;             
+  assertions.forEach(function (funcName) {
+    self[funcName] = function () {
+      assert[funcName].apply(null, arguments);
+      self.emit('RANTEST');
+    }
+  })
+}
+util.inherits(AssertExt, events.EventEmitter);
