@@ -17,6 +17,11 @@ process.once('exit', function (code) {
     totalTestsRan += testies[i]._testsRan;
   }
 
+  // if node process is already in an error state
+  // don't exit process manually. This allows
+  // exceptions to be printed to stderr.
+  if (code === 1) return;
+
   if (totalExpectedTests === 0) process.exit(0);
   process.exit((totalTestsRan === totalExpectedTests) ? 0 : 1);
 })
