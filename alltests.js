@@ -9,7 +9,7 @@ if (module == require.main) {
     'test-multinstance.js': 0,
     'test-namedtest.js': 0,
     'test-simple.js': 0,
-    'test-stacktrace': (process.version.slice(0, 5) === 'v0.10') ? 8 : 0
+    'test-stacktrace': (process.version.slice(0, 5) === 'v0.10') ? 8 : 1
   };
 
   for (var test in tests) {
